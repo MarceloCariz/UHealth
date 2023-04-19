@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import Classes.Admin.User;
+import Classes.Admin.Users;
 import Classes.Admin.UserDAO;
 
 public class Admin extends JFrame{
@@ -63,7 +63,7 @@ public class Admin extends JFrame{
                         break;
                 }
 
-                User user = new User(name, email, phone, password, idRol);
+                Users user = new Users(name, email, phone, password, idRol);
                 JOptionPane.showMessageDialog(null, "Usuario creado Correctamente");
                 userDAO.createUser(user);
                 nameField.setText("");

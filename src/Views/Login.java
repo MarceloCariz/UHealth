@@ -54,8 +54,6 @@ public class Login extends JFrame {
 
                     if(!rs.next()){
                         JOptionPane.showMessageDialog(null, "Datos de acceso incorrectos.");
-                        userField.setText("");
-                        passwordField.setText("");
                     }
 
                     // Obtener id rol para despues evaluarlo
@@ -68,11 +66,7 @@ public class Login extends JFrame {
                             break;
                         case 2: /// 2 = cliente
                             dispose();
-                            break;
-                        case 3: /// 3 = maestro
-                            dispose();
-                            new Maestro().setVisible(true);
-//                            new Maestro().setMasterName(masterName);
+                            new User().setVisible(true);
                             break;
                         default:
                             break;

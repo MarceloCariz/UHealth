@@ -113,8 +113,7 @@
                 <properties>
                   <model>
                     <item value="administrador"/>
-                    <item value="cliente"/>
-                    <item value="maestro"/>
+                    <item value="usuario"/>
                   </model>
                 </properties>
               </component>

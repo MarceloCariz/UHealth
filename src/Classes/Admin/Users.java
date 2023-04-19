@@ -1,6 +1,6 @@
 package Classes.Admin;
 
-public class User {
+public class Users {
 
     private int id;
     private String name;
@@ -9,9 +9,9 @@ public class User {
     private String phone;
     private int idRol;
 
-    public User(){};
+    public Users(){};
 
-    public User( String name, String email, String password, String phone, int idRol){
+    public Users(String name, String email, String password, String phone, int idRol){
 //        this.id = id;
         this.name = name;
         this.email = email;
