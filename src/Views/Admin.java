@@ -45,10 +45,32 @@ public class Admin extends JFrame{
                 String email = emailField.getText();
                 String phone = phoneField.getText();
                 String password = passField.getText();
-                int idRol = 2;
+                String rolValue = rolcomboBox.getSelectedItem().toString();
+                System.out.println(rolValue);
+                int idRol = 0;
+                switch (rolValue){
+                    case "administrador":
+                        idRol = 1;
+                        break;
+                    case "cliente":
+                        idRol = 2;
+                        break;
+                    case  "maestro":
+                        idRol = 3;
+                        break;
+                    default:
+                        System.out.println("Rol desconocido: " + rolValue);
+                        break;
+                }
 
                 User user = new User(name, email, phone, password, idRol);
+                JOptionPane.showMessageDialog(null, "Usuario creado Correctamente");
                 userDAO.createUser(user);
+                nameField.setText("");
+                emailField.setText("");
+                phoneField.setText("");
+                passField.setText("");
+                rolcomboBox.setSelectedIndex(0);
 
 
             }

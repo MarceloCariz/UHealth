@@ -111,7 +111,11 @@
                   <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <model/>
+                  <model>
+                    <item value="administrador"/>
+                    <item value="cliente"/>
+                    <item value="maestro"/>
+                  </model>
                 </properties>
               </component>
               <component id="174d6" class="javax.swing.JButton" binding="createButton">

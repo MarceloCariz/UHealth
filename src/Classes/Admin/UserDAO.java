@@ -4,6 +4,7 @@ import Classes.Database.Conexion;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDAO {
@@ -17,6 +18,11 @@ public class UserDAO {
     public void createUser(User usuario){
         String query = "INSERT INTO usuarios (nombre, email, password, telefono, idRol) VALUES(?, ? , ? , ? , ?)";
         try{
+            // Todo: Comprobar correo
+
+
+
+            // Preparar para crear usuario
             PreparedStatement statement = conexion.prepareStatement(query);
             statement.setString(1, usuario.getName());
             statement.setString(2, usuario.getEmail());
@@ -35,4 +41,6 @@ public class UserDAO {
             System.err.println("Error en la creacion de usuario"+e);
         }
     }
+
+
 }
