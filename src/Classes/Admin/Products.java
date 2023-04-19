@@ -8,13 +8,14 @@ public class Products {
 
     private int id;
     private String category;
+    private int categoryId;
     private String name;
     private float calories;
     private float carbs; // carbohidratos
 
     public static List<Object[]> categories;
 
-    public static List<Object[]> products;
+    public static List<Products> products;
 
     public Products(){};
 
@@ -48,6 +49,10 @@ public class Products {
         this.category = category;
     }
 
+    public int getCategoryId() {
+        return categoryId;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -60,5 +65,7 @@ public class Products {
         this.carbs = carbs;
     }
 
-
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
 }

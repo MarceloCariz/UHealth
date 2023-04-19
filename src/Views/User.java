@@ -9,15 +9,14 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 public class User extends JFrame{
     private JPanel userPanel;
     private JLabel userName;
     private JLabel welcomeText;
     private JPanel navBar;
-    private JButton accionButton;
-    private JButton agregarButton;
+    private JButton routinesButton;
+    private JButton submitButton;
     private JComboBox categoryBox;
     private JComboBox selectBox;
     private JLabel caloriesField;
@@ -28,9 +27,11 @@ public class User extends JFrame{
     private JLabel scheduleText;
     private JLabel dataField;
     private JLabel dateText;
+    private JPanel foodContentMain;
 
 
     ProductsDAO productsDAO = new ProductsDAO();
+    Products products = new Products();
     public User(){
 
         setContentPane(userPanel);
@@ -47,20 +48,54 @@ public class User extends JFrame{
         this.categoryBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Limpiar resultados anteriores
-                selectBox.removeAllItems();
                 String nameCategory = categoryBox.getSelectedItem().toString();
+                // Limpiar resultados anteriores
+                if(products.getCategory() != nameCategory){
+                    selectBox.removeAllItems();
+                }
+//                products.setCategory(nameCategory);
                 int categoryId = Character.getNumericValue(nameCategory.charAt(0));
                 setProductsByCategory(categoryId);
+                products.setCategoryId(categoryId);
+            }
+        });
 
+        this.selectBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String productName = selectBox.getSelectedItem().toString();
+                products.setName(productName);
+                float calories = productsDAO.getCaloriesByProduct(productName);
+//                System.out.println(products.getCalories());
+                products.setCalories(calories);
+                String caloriesText = Float.toString(calories);
+                caloriesField.setText(caloriesText);
+            }
+        });
+
+        /// Enviar info
+        this.submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println(products.getName());
+                System.out.println(products.getCategoryId());
+                System.out.println(products.getCalories());
+                System.out.println(scheduleField.getText());
+                System.out.println(dataField.getText());
+            }
+        });
+
+        this.routinesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new Food().setVisible(true);
             }
         });
 
     }
 
-    public String getNameCategory(){
-        return categoryBox.getSelectedItem().toString();
-    }
+
     public void setCategories(){
         //Obtener categorias
         productsDAO.getCategories();
@@ -73,9 +108,9 @@ public class User extends JFrame{
 
     public void  setProductsByCategory(int categoryId){
         productsDAO.getProductsByCategory(categoryId);
-        for(Object[] product : Products.products){
-            selectBox.setName(product[0].toString());// id
-            selectBox.addItem(product[1]); /// nombre
+        for(Products product : Products.products){
+//            selectBox.setName(product.getId());// id
+            selectBox.addItem(product.getName()); /// nombre
         }
 
     }

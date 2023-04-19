@@ -8,8 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 public class ProductsDAO {
+    Products products = new Products();
 
     private Connection conexion;
+
+//    Products products = new Products();
 
     public ProductsDAO(){
         Connection cn = Conexion.conectar();
@@ -38,8 +41,9 @@ public class ProductsDAO {
         }catch (SQLException e){
             System.err.println(e);
         }
-
     }
+
+
 
     public void getProductsByCategory(int categoryId){
         String query = "SELECT * FROM productos WHERE idCategoria = ?";
@@ -49,22 +53,42 @@ public class ProductsDAO {
             PreparedStatement statement = conexion.prepareStatement(query);
             statement.setInt(1,categoryId);
             ResultSet rs = statement.executeQuery();
-            List<Object[]> products = new ArrayList<>();
+            List<Products> products = new ArrayList<>();
 
             while (rs.next()){
-                Object[] row = new Object[5];
-                row[0] = rs.getInt("id");
-                row[1] = rs.getString("nombre");
-                row[2] = rs.getFloat("calorias");
-                row[3] = rs.getFloat("carbohidratos");
-                row[4] = rs.getInt("idCategoria");
-                products.add(row);
+                Products product = new Products();
+                product.setName(rs.getString("nombre"));
+                product.setCalories(rs.getFloat("calorias"));
+//                row[0] = rs.getInt("id");
+//                row[1] = rs.getString("nombre");
+//                row[2] = rs.getFloat("calorias");
+//                row[3] = rs.getFloat("carbohidratos");
+//                row[4] = rs.getInt("idCategoria");
+//                products.add(row);
+                products.add(product);
             }
 
             Products.products = products;
         }catch (SQLException e){
             System.err.println(e);
         }
+    }
+
+    public float getCaloriesByProduct(String productName){
+        Optional<Float> productCalories = Products.products.stream()
+                .filter(product -> product.getName().equals(productName))
+                .map(Products::getCalories) // transforma el objeto Product en un float con el valor de price
+                .findFirst();
+        if(productCalories.isPresent()){
+            float calories = productCalories.get();
+
+            return calories;
+        }else{
+            products.setCalories(0.1f);
+            return 0;
+        }
+
+
     }
 
 
