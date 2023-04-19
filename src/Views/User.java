@@ -1,7 +1,6 @@
 package Views;
 
-import Classes.Admin.Products;
-import Classes.Admin.ProductsDAO;
+import Classes.Admin.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -25,13 +24,17 @@ public class User extends JFrame{
     private JLabel categoryText;
     private JLabel scheduleField;
     private JLabel scheduleText;
-    private JLabel dataField;
+    private JLabel dateField;
     private JLabel dateText;
     private JPanel foodContentMain;
 
 
     ProductsDAO productsDAO = new ProductsDAO();
     Products products = new Products();
+
+    Routines routines = new Routines();
+
+    RoutinesDAO routinesDAO = new RoutinesDAO();
     public User(){
 
         setContentPane(userPanel);
@@ -77,11 +80,14 @@ public class User extends JFrame{
         this.submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(products.getName());
-                System.out.println(products.getCategoryId());
-                System.out.println(products.getCalories());
-                System.out.println(scheduleField.getText());
-                System.out.println(dataField.getText());
+               String date = dateField.getText();
+               String time = scheduleField.getText();
+               int idProduct = Routines.idProduct;
+               int idUser = Login.userId;
+               Routines routines = new Routines(date, time, idProduct, idUser);
+                System.out.println(date + time +  idProduct + idUser);
+               routinesDAO.createRoutine(routines);
+               JOptionPane.showMessageDialog(null, "Rutina creada Correctamente");
             }
         });
 
@@ -121,7 +127,7 @@ public class User extends JFrame{
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String formattedDate = currentDate.format(formatter);
-        this.dataField.setText(formattedDate);
+        this.dateField.setText(formattedDate);
         if(currentTime.isBefore(LocalTime.NOON)){
             this.scheduleField.setText("Mañana");
         }else if(currentTime.isBefore(LocalTime.of(18,0))){

@@ -14,7 +14,7 @@ public class Food extends JFrame {
     private JLabel dataField;
     private JLabel dateText;
     private JButton foodButton;
-    private JTable foodTable;
+    private JScrollPane scrollPanel;
 
     public Food (){
         setContentPane(foodPanel);

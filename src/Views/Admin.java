@@ -64,8 +64,8 @@ public class Admin extends JFrame{
                 }
 
                 Users user = new Users(name, email, phone, password, idRol);
-                JOptionPane.showMessageDialog(null, "Usuario creado Correctamente");
                 userDAO.createUser(user);
+                JOptionPane.showMessageDialog(null, "Usuario creado Correctamente");
                 nameField.setText("");
                 emailField.setText("");
                 phoneField.setText("");

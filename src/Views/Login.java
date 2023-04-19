@@ -19,6 +19,7 @@ public class Login extends JFrame {
 
     // Enviar datos entre interfaces
     public static String userName = "";
+    public static  int userId  = 0;
     String pass = "";
 
     public Login(){
@@ -45,7 +46,7 @@ public class Login extends JFrame {
                     Connection cn = Conexion.conectar();
                     //
                     PreparedStatement pst  = cn.prepareStatement(
-                            "select idRol, nombre from usuarios where email = '" + userEmail
+                            "select id_usuario, idRol, nombre from usuarios where email = '" + userEmail
                                 + "' and password = '" + pass + "'"
                     );
 
@@ -59,6 +60,7 @@ public class Login extends JFrame {
                     // Obtener id rol para despues evaluarlo
                     int idRol = rs.getInt("idRol");
                     userName = rs.getString("nombre");
+                    userId = rs.getInt("id_usuario");
                     switch (idRol){
                         case 1:   /// 1  = admin
                             dispose(); //limpia el jframe

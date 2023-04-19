@@ -59,6 +59,7 @@ public class ProductsDAO {
                 Products product = new Products();
                 product.setName(rs.getString("nombre"));
                 product.setCalories(rs.getFloat("calorias"));
+                product.setId(rs.getInt("id"));
 //                row[0] = rs.getInt("id");
 //                row[1] = rs.getString("nombre");
 //                row[2] = rs.getFloat("calorias");
@@ -75,12 +76,15 @@ public class ProductsDAO {
     }
 
     public float getCaloriesByProduct(String productName){
-        Optional<Float> productCalories = Products.products.stream()
+        Optional<Products> productFilter= Products.products.stream()
                 .filter(product -> product.getName().equals(productName))
-                .map(Products::getCalories) // transforma el objeto Product en un float con el valor de price
+               // .map(Products::getCalories) // transforma el objeto Product en un float con el valor de price
                 .findFirst();
-        if(productCalories.isPresent()){
-            float calories = productCalories.get();
+        if(productFilter.isPresent()){
+            Products productsInfo = productFilter.get();
+            float calories = productsInfo.getCalories();
+//            products.setId(productsInfo.getId());
+            Routines.idProduct = productsInfo.getId();
 
             return calories;
         }else{
@@ -88,8 +92,9 @@ public class ProductsDAO {
             return 0;
         }
 
-
     }
+
+
 
 
 
