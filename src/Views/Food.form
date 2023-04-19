@@ -54,7 +54,7 @@
               <text value="Horario"/>
             </properties>
           </component>
-          <component id="6bb56" class="javax.swing.JLabel" binding="dataField">
+          <component id="6bb56" class="javax.swing.JLabel" binding="dateField">
             <constraints>
               <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -93,7 +93,12 @@
         </constraints>
         <properties/>
         <border type="none"/>
-        <children/>
+        <children>
+          <component id="e1b03" class="javax.swing.JTable" binding="jTableRoutines">
+            <constraints/>
+            <properties/>
+          </component>
+        </children>
       </scrollpane>
     </children>
   </grid>

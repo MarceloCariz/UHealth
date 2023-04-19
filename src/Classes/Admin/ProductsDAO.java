@@ -45,15 +45,16 @@ public class ProductsDAO {
 
 
 
-    public void getProductsByCategory(int categoryId){
+    public List<Products> getProductsByCategory(int categoryId){
+        System.out.println(categoryId);
         String query = "SELECT * FROM productos WHERE idCategoria = ?";
+        List<Products> products = new ArrayList<>();
 
         try{
 
             PreparedStatement statement = conexion.prepareStatement(query);
             statement.setInt(1,categoryId);
             ResultSet rs = statement.executeQuery();
-            List<Products> products = new ArrayList<>();
 
             while (rs.next()){
                 Products product = new Products();
@@ -73,6 +74,8 @@ public class ProductsDAO {
         }catch (SQLException e){
             System.err.println(e);
         }
+
+        return products;
     }
 
     public float getCaloriesByProduct(String productName){

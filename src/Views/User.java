@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class User extends JFrame{
     private JPanel userPanel;
@@ -27,6 +28,9 @@ public class User extends JFrame{
     private JLabel dateField;
     private JLabel dateText;
     private JPanel foodContentMain;
+
+    public static String time;
+    public static  String date;
 
 
     ProductsDAO productsDAO = new ProductsDAO();
@@ -52,12 +56,13 @@ public class User extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 String nameCategory = categoryBox.getSelectedItem().toString();
+                int categoryId = Character.getNumericValue(nameCategory.charAt(0));
                 // Limpiar resultados anteriores
-                if(products.getCategory() != nameCategory){
+                if(Products.products != null && !Products.products.isEmpty()){
                     selectBox.removeAllItems();
                 }
+
 //                products.setCategory(nameCategory);
-                int categoryId = Character.getNumericValue(nameCategory.charAt(0));
                 setProductsByCategory(categoryId);
                 products.setCategoryId(categoryId);
             }
@@ -66,6 +71,7 @@ public class User extends JFrame{
         this.selectBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(selectBox.getModel().getSize() == 0) return;
                 String productName = selectBox.getSelectedItem().toString();
                 products.setName(productName);
                 float calories = productsDAO.getCaloriesByProduct(productName);
@@ -85,7 +91,6 @@ public class User extends JFrame{
                int idProduct = Routines.idProduct;
                int idUser = Login.userId;
                Routines routines = new Routines(date, time, idProduct, idUser);
-                System.out.println(date + time +  idProduct + idUser);
                routinesDAO.createRoutine(routines);
                JOptionPane.showMessageDialog(null, "Rutina creada Correctamente");
             }
@@ -107,14 +112,14 @@ public class User extends JFrame{
         productsDAO.getCategories();
         //Agregar categorias al comboBox
         for(Object[] category : Products.categories){
-            String nombre = category[0].toString() + category[1].toString();
+            String nombre = category[0].toString() +"-"+category[1].toString();
             categoryBox.addItem(nombre); // nombre
         }
     }
 
     public void  setProductsByCategory(int categoryId){
-        productsDAO.getProductsByCategory(categoryId);
-        for(Products product : Products.products){
+        List<Products>  products =  productsDAO.getProductsByCategory(categoryId);
+        for(Products product : products){
 //            selectBox.setName(product.getId());// id
             selectBox.addItem(product.getName()); /// nombre
         }
@@ -128,12 +133,16 @@ public class User extends JFrame{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String formattedDate = currentDate.format(formatter);
         this.dateField.setText(formattedDate);
+        date = formattedDate;
         if(currentTime.isBefore(LocalTime.NOON)){
             this.scheduleField.setText("Mañana");
+            time = "Mañana";
         }else if(currentTime.isBefore(LocalTime.of(18,0))){
             this.scheduleField.setText("Tarde");
+            time = "Tarde";
         }else{
             this.scheduleField.setText("Noche");
+            time = "Noche";
         }
     }
 
