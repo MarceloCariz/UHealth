@@ -27,7 +27,7 @@ public class Login extends JFrame {
         setContentPane(panel1);
         setSize(400, 550);
         setResizable(false);
-        setTitle("Inicio de Sesion");
+        setTitle("Inicio de Sesión");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         loginButton.addActionListener(new ActionListener() {
@@ -55,6 +55,7 @@ public class Login extends JFrame {
 
                     if(!rs.next()){
                         JOptionPane.showMessageDialog(null, "Datos de acceso incorrectos.");
+                        return;
                     }
 
                     // Obtener id rol para despues evaluarlo

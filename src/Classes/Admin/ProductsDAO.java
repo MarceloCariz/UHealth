@@ -24,7 +24,7 @@ public class ProductsDAO {
         String query = "INSERT INTO productos (nombre, calorias, carbohidratos, idCategoria) VALUES(?,?,?,?)";
         try{
             PreparedStatement  stmt = conexion.prepareStatement(query);
-            stmt.setString(1, product.getName());
+            stmt.setString(1, product.getName()); // Insertar el nombre
             stmt.setFloat(2, product.getCalories());
             stmt.setFloat(3, product.getCarbs());
             stmt.setInt(4,product.getCategoryId());

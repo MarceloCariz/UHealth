@@ -38,6 +38,10 @@ public class UserDAO {
         }
     }
 
+    public void validateUser(){
+
+    }
+
 
 
 

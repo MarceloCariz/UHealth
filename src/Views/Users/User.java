@@ -64,7 +64,6 @@ public class User extends JFrame{
                 if(Products.products != null && !Products.products.isEmpty()){
                     selectBox.removeAllItems();
                 }
-
 //                products.setCategory(nameCategory);
                 setProductsByCategory(categoryId);
                 products.setCategoryId(categoryId);
