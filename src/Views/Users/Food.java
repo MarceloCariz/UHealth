@@ -1,7 +1,8 @@
-package Views;
+package Views.Users;
 
 import Classes.Admin.RoutinesDAO;
 import Classes.Database.Conexion;
+import Views.Login;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -37,7 +38,7 @@ public class Food extends JFrame {
         setContentPane(foodPanel);
         setSize(900, 550);
         setResizable(false);
-        setTitle("Cliente"+Login.userName);
+        setTitle("Cliente"+ Login.userName);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         dateField.setText(User.date);
         scheduleField.setText(User.time);
@@ -45,6 +46,7 @@ public class Food extends JFrame {
         this.userName.setText(Login.userName);
         jTableRoutines = new JTable(model);
         scrollPanel.setViewportView(jTableRoutines);
+        model.addColumn("Id");
         model.addColumn("Fecha");
         model.addColumn("Horario");
         model.addColumn("Comida");

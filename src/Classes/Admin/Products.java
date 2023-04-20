@@ -19,11 +19,11 @@ public class Products {
 
     public Products(){};
 
-    public Products(int id, String category, String name, float calories, float carbs){
-        this.category = category;
+    public Products(String name, float calories, float carbs, int categoryId){
         this.name = name;
         this.calories = calories;
         this.carbs = carbs;
+        this.categoryId = categoryId;
     }
 
     public int getId() {

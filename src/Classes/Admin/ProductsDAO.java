@@ -20,6 +20,27 @@ public class ProductsDAO {
     }
 
 
+    public void createProduct(Products product){
+        String query = "INSERT INTO productos (nombre, calorias, carbohidratos, idCategoria) VALUES(?,?,?,?)";
+        try{
+            PreparedStatement  stmt = conexion.prepareStatement(query);
+            stmt.setString(1, product.getName());
+            stmt.setFloat(2, product.getCalories());
+            stmt.setFloat(3, product.getCarbs());
+            stmt.setInt(4,product.getCategoryId());
+
+            int rowsAffected = stmt.executeUpdate();
+
+            if(rowsAffected <= 0){
+                System.err.println("Hubo un error");
+                return;
+            }
+            System.out.println("Comida creada exitosamente");
+        }catch (SQLException e){
+            System.err.println(e);
+        }
+    }
+
     public void getCategories(){
         String query = "SELECT * FROM categorias";
         try{

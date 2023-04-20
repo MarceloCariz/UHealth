@@ -1,6 +1,8 @@
-package Views;
+package Views.Users;
 
 import Classes.Admin.*;
+import Views.Login;
+import Views.Users.Food;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -44,7 +46,7 @@ public class User extends JFrame{
         setContentPane(userPanel);
         setSize(600, 550);
         setResizable(false);
-        setTitle("Cliente"+Login.userName);
+        setTitle("Cliente"+ Login.userName);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.userName.setText(Login.userName);
         //Obtener horario y fecha

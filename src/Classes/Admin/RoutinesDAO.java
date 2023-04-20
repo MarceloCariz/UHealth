@@ -45,7 +45,8 @@ public class RoutinesDAO {
     }
 
     public void  getRoutinesByUserId(DefaultTableModel model){
-        String query = "SELECT r.fecha , r.horario , p.nombre, p.calorias, p.carbohidratos from rutinas r JOIN productos p ON r.idProducto = p.id JOIN usuarios u ON u.id_usuario = r.idUsuario WHERE u.id_usuario = ?";
+        String query = "SELECT r.id ,r.fecha , r.horario , p.nombre, p.calorias, p.carbohidratos from rutinas r JOIN productos p ON r.idProducto = p.id JOIN usuarios u ON u.id_usuario = r.idUsuario WHERE u.id_usuario = ?"
+                + " " + "ORDER BY r.id desc";
 
         try{
             PreparedStatement statement = conexion.prepareStatement(query);
@@ -54,8 +55,8 @@ public class RoutinesDAO {
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()){
-                Object[] row = new Object[5];
-                for (int i = 0; i < 5; i++){
+                Object[] row = new Object[6];
+                for (int i = 0; i < 6; i++){
                     row[i] = rs.getObject(i + 1);
                 }
                 model.addRow(row);

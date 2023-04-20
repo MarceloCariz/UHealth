@@ -1,10 +1,11 @@
 package Views;
 import javax.swing.*;
 import Classes.Database.Conexion;
+import Views.Admin.Admin;
+import Views.Users.User;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

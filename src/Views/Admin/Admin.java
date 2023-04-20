@@ -1,4 +1,4 @@
-package Views;
+package Views.Admin;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -6,11 +6,12 @@ import java.awt.event.ActionListener;
 
 import Classes.Admin.Users;
 import Classes.Admin.UserDAO;
+import Views.Login;
 
 public class Admin extends JFrame{
     private JPanel panel1;
     private JLabel userName;
-    private JButton button1;
+    private JButton addFoodButton;
     private JPanel createUserPanel;
     private JTextField nameField;
     private JTextField phoneField;
@@ -73,6 +74,15 @@ public class Admin extends JFrame{
                 rolcomboBox.setSelectedIndex(0);
 
 
+            }
+        });
+
+        // Ir ha agregar comida
+        this.addFoodButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new FoodAdmin().setVisible(true);
             }
         });
 
