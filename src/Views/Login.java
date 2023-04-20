@@ -18,7 +18,7 @@ public class Login extends JFrame {
     private JLabel userLabel;
     private JPasswordField passwordField;
 
-    // Enviar datos entre interfaces
+    // Enviar datos entre interfaces / Variabled globales
     public static String userName = "";
     public static  int userId  = 0;
     String pass = "";
@@ -37,7 +37,6 @@ public class Login extends JFrame {
                 char[] getPassword = passwordField.getPassword();
                 pass = new String(getPassword);
                 if(userEmail.equals("") || pass.equals("")){
-                    // TODO: mostrar algo
                     JOptionPane.showMessageDialog(null,"Debes llenar todos los campos");
                     return;
                 }
@@ -45,7 +44,7 @@ public class Login extends JFrame {
                 try {
                     // Conexion con la bd
                     Connection cn = Conexion.conectar();
-                    //
+                    // Preparar query
                     PreparedStatement pst  = cn.prepareStatement(
                             "select id_usuario, idRol, nombre from usuarios where email = '" + userEmail
                                 + "' and password = '" + pass + "'"
@@ -62,6 +61,7 @@ public class Login extends JFrame {
                     int idRol = rs.getInt("idRol");
                     userName = rs.getString("nombre");
                     userId = rs.getInt("id_usuario");
+
                     switch (idRol){
                         case 1:   /// 1  = admin
                             dispose(); //limpia el jframe

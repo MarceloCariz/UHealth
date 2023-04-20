@@ -30,6 +30,7 @@ public class User extends JFrame{
     private JLabel dateField;
     private JLabel dateText;
     private JPanel foodContentMain;
+    private JButton profileButton;
 
     public static String time;
     public static  String date;
@@ -84,7 +85,7 @@ public class User extends JFrame{
             }
         });
 
-        /// Enviar info
+        /// Enviar informacion  / crear rutina
         this.submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -103,6 +104,14 @@ public class User extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 new Food().setVisible(true);
+            }
+        });
+
+        this.profileButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new Profile().setVisible(true);
             }
         });
 
