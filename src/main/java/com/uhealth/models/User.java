@@ -67,6 +67,10 @@ public class User {
         this.idRol = idRol;
     }
 
+    public void setIdPerfil(int idPerfil) {
+        this.idPerfil = idPerfil;
+    }
+
     public int getId() {
         return id;
     }
@@ -89,5 +93,9 @@ public class User {
 
     public int getIdRol() {
         return idRol;
+    }
+
+    public int getIdPerfil() {
+        return idPerfil;
     }
 }

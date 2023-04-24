@@ -2,10 +2,8 @@ package main.java.com.uhealth.views.Admin;
 
 import main.java.com.uhealth.controllers.CategoryController;
 import main.java.com.uhealth.controllers.ProductController;
-import main.java.com.uhealth.dao.ProductDao;
 import main.java.com.uhealth.models.Category;
 import main.java.com.uhealth.models.Product;
-import Classes.Admin.ProductsDAO;
 import main.java.com.uhealth.views.Login;
 
 import javax.swing.*;

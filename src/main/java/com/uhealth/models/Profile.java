@@ -8,14 +8,20 @@ public class Profile {
 
     private float height;
 
+    private char gender;
+
     private float imc;
 
 
-    public Profile(int age, float weight, float height, float imc){
+    public Profile(){}
+
+    public Profile(int id, int age, float weight, float height, float imc, char gender){
+        this.id = id;
         this.age = age;
         this.weight = weight;
         this.height = height;
         this.imc = imc;
+        this.gender = gender;
     }
 
 
@@ -33,6 +39,10 @@ public class Profile {
 
     public float getHeight() {
         return height;
+    }
+
+    public char getGender() {
+        return gender;
     }
 
     public float getImc() {
@@ -55,6 +65,9 @@ public class Profile {
         this.height = height;
     }
 
+    public void setGender(char gender) {
+        this.gender = gender;
+    }
     public void setImc(float imc) {
         this.imc = imc;
     }

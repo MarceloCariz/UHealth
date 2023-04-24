@@ -2,6 +2,7 @@ package main.java.com.uhealth.service;
 
 import main.java.com.uhealth.dao.ProductDao;
 import main.java.com.uhealth.models.Product;
+import main.java.com.uhealth.models.Profile;
 
 import javax.swing.*;
 import java.util.List;
@@ -22,4 +23,5 @@ public class ProductService {
     public List<Product> getProductByCategoryId(int categoryId){
         return productDao.getProductsByCategoryId(categoryId);
     }
+
 }

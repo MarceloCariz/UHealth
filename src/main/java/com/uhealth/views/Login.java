@@ -44,6 +44,7 @@ public class Login extends JFrame {
                 try {
                     // Conexion con la bd
                     Connection cn = Conexion.conectar();
+
                     // Preparar query
                     PreparedStatement pst  = cn.prepareStatement(
                             "select id_usuario, idRol, nombre from usuarios where email = '" + userEmail
@@ -52,6 +53,8 @@ public class Login extends JFrame {
 
 
                     ResultSet rs = pst.executeQuery();
+//                    Conexion conexion = null;
+//                    Conexion.closeAllConnections();
 
                     if(!rs.next()){
                         JOptionPane.showMessageDialog(null, "Datos de acceso incorrectos.");
@@ -62,6 +65,7 @@ public class Login extends JFrame {
                     int idRol = rs.getInt("idRol");
                     userName = rs.getString("nombre");
                     userId = rs.getInt("id_usuario");
+
 
                     switch (idRol){
                         case 1:   /// 1  = admin

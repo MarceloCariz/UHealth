@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 
 import main.java.com.uhealth.controllers.UserController;
 import main.java.com.uhealth.models.User;
-import Classes.Admin.UserDAO;
 import main.java.com.uhealth.views.Login;
 
 public class Admin extends JFrame{
@@ -31,7 +30,6 @@ public class Admin extends JFrame{
     private JLabel rolLabel;
 
 
-    UserController userController = new UserController();
 
 
     public Admin(){
@@ -41,6 +39,7 @@ public class Admin extends JFrame{
         setTitle("Administrador");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.userName.setText(Login.userName);
+
 
         //TraerDatos
 
@@ -69,7 +68,9 @@ public class Admin extends JFrame{
 
                 int rolId  = selectIdRol();
                 User user = new User(name, email, password, phone, rolId);
+                UserController userController = new UserController();
                 userController.addUser(user);
+
                 nameField.setText("");
                 emailField.setText("");
                 phoneField.setText("");

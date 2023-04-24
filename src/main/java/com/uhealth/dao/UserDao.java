@@ -10,18 +10,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDao extends ProfileDao{
+public class UserDao{
     private Connection conexion;
 
     public UserDao(){
         this.conexion = Conexion.conectar();
+
     }
 
-    public boolean create(User user){
+    public boolean create(User user, int idProfile){
         String query = "INSERT INTO usuarios (nombre, email, password, telefono, idRol, idPerfil) VALUES(?, ? , ? , ? , ?, ?)";
         try{
             //Obterner id perfil
-            int idProfile = this.createProfile();
             // Preparar para crear usuario
             PreparedStatement statement = conexion.prepareStatement(query);
             statement.setString(1, user.getName()); // Inserta el nombre en el 1 ?
@@ -32,6 +32,7 @@ public class UserDao extends ProfileDao{
             statement.setInt(6, idProfile);
             int result = statement.executeUpdate();
 
+            conexion.close();
             return result > 0;//result > 0 ? true : false
         }catch (SQLException e){
             System.err.println("Error en la creacion de usuario"+e);
@@ -56,6 +57,7 @@ public class UserDao extends ProfileDao{
                 User user = new User(id, name, email, phone, rolId);
                 users.add(user);
             }
+            conexion.close();
         }catch (SQLException e){
             System.err.println("Error en la creacion de usuario"+e);
         }
@@ -80,11 +82,38 @@ public class UserDao extends ProfileDao{
                 int existe = rs.getInt("existe");
                 return existe > 0; // Si hay correo marca como true  / false
             }
-
+            conexion.close();
             return true;
         }catch (SQLException e){
             System.err.println("Error en la creacion de usuario"+e);
             return true;
         }
+    }
+
+    public User getUserById(int userId){
+        String query = "SELECT * from usuarios WHERE id_usuario = ?";
+        User user = null;
+        try{
+            PreparedStatement statement = conexion.prepareStatement(query);
+            statement.setInt(1, userId);
+
+            ResultSet rs = statement.executeQuery();
+
+            if(rs.next()){
+                user = new User();
+                user.setId(rs.getInt("id_usuario"));
+                user.setName(rs.getString("nombre"));
+                user.setEmail(rs.getString("correo"));
+                user.setPassword(rs.getString("password"));
+                user.setIdPerfil(rs.getInt("idPerfil"));
+                conexion.close();
+            }else{
+                System.out.println("No se encontro ningun usuario con el id: " + userId);
+                conexion.close();
+            }
+        }catch (SQLException e){
+            System.err.println("Error en la obtencion del usuario"+e);
+        }
+        return  user;
     }
 }

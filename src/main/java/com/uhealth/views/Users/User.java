@@ -1,6 +1,5 @@
 package main.java.com.uhealth.views.Users;
 
-import Classes.Admin.*;
 import main.java.com.uhealth.controllers.CategoryController;
 import main.java.com.uhealth.controllers.ProductController;
 import main.java.com.uhealth.controllers.RoutineController;
@@ -42,10 +41,7 @@ public class User extends JFrame{
     public static  String date;
 
 
-    CategoryController categoryController = new CategoryController();
-    RoutineController routineController = new RoutineController();
 
-    ProductController productController = new ProductController();
     private  List<Product>  products;
 
     public User(){
@@ -56,6 +52,9 @@ public class User extends JFrame{
         setTitle("Cliente"+ Login.userName);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.userName.setText(Login.userName);
+
+        RoutineController routineController = new RoutineController();
+
         //Obtener horario y fecha
         this.Time();
         //LLenar comboBox con las categorias
@@ -112,7 +111,7 @@ public class User extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                new Profile().setVisible(true);
+                new ProfileV().setVisible(true);
             }
         });
 
@@ -130,6 +129,8 @@ public class User extends JFrame{
     }
     public void setCategories(){
         //Obtener categorias
+        CategoryController categoryController = new CategoryController();
+
         List<Category> categories = categoryController.getCategories();
         //Agregar categorias al comboBox
         for(Category category : categories){
@@ -141,6 +142,8 @@ public class User extends JFrame{
 
 
     public void  setProductsByCategory(int categoryId){
+        ProductController productController = new ProductController();
+
         products = productController.getProductsByCategoryId(categoryId);
         for(Product product : products){
             selectBox.addItem(product.getName()); /// nombre
