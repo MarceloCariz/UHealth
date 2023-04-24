@@ -1,10 +1,8 @@
-package Classes.Admin;
+package main.java.com.uhealth.models;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
-public class Products {
+public class Product {
 
     private int id;
     private String category;
@@ -15,11 +13,11 @@ public class Products {
 
     public static List<Object[]> categories;
 
-    public static List<Products> products;
+    public static List<Product> products;
 
-    public Products(){};
+    public Product(){};
 
-    public Products(String name, float calories, float carbs, int categoryId){
+    public Product(String name, float calories, float carbs, int categoryId){
         this.name = name;
         this.calories = calories;
         this.carbs = carbs;

@@ -1,8 +1,8 @@
-package Views.Users;
+package main.java.com.uhealth.views.Users;
 
 import Classes.Admin.RoutinesDAO;
-import Classes.Database.Conexion;
-import Views.Login;
+import main.java.com.uhealth.Database.Conexion;
+import main.java.com.uhealth.views.Login;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

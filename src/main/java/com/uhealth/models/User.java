@@ -1,6 +1,6 @@
-package Classes.Admin;
+package main.java.com.uhealth.models;
 
-public class Users {
+public class User {
 
     private int id;
     private String name;
@@ -9,10 +9,12 @@ public class Users {
     private String phone;
     private int idRol;
 
-    public Users(){};
+    public User(){};
 
-    public Users(String name, String email, String password, String phone, int idRol){
-//        this.id = id;
+
+    // Constructor general
+    public User(int id, String name, String email, String password, String phone, int idRol){
+        this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -20,9 +22,26 @@ public class Users {
         this.idRol = idRol;
     }
 
+    // Constructor obtener
+    public User(int id, String name, String email, String phone, int idRol){
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.idRol = idRol;
+    }
+
+    // Constructor crear
+    public User( String name, String email ,String password , String phone, int idRol){
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.idRol = idRol;
+    }
+
+
     //getters y setters
-
-
     public void setId(int id) {
         this.id = id;
     }

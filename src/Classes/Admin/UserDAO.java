@@ -1,6 +1,7 @@
 package Classes.Admin;
 
-import Classes.Database.Conexion;
+import main.java.com.uhealth.Database.Conexion;
+import main.java.com.uhealth.models.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,13 +15,15 @@ public class UserDAO {
         conexion = cn;
     }
 
-    public void createUser(Users usuario){
+
+    //Crear usuario
+    public void createUser(User usuario){
         String query = "INSERT INTO usuarios (nombre, email, password, telefono, idRol) VALUES(?, ? , ? , ? , ?)";
         try{
             // Todo: Comprobar correo
             // Preparar para crear usuario
             PreparedStatement statement = conexion.prepareStatement(query);
-            statement.setString(1, usuario.getName());
+            statement.setString(1, usuario.getName()); // Inserta el nombre en el 1 ?
             statement.setString(2, usuario.getEmail());
             statement.setString(3, usuario.getPassword());
             statement.setString(4, usuario.getPhone());

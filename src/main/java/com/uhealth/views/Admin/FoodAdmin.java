@@ -1,12 +1,17 @@
-package Views.Admin;
+package main.java.com.uhealth.views.Admin;
 
-import Classes.Admin.Products;
+import main.java.com.uhealth.controllers.CategoryController;
+import main.java.com.uhealth.controllers.ProductController;
+import main.java.com.uhealth.dao.ProductDao;
+import main.java.com.uhealth.models.Category;
+import main.java.com.uhealth.models.Product;
 import Classes.Admin.ProductsDAO;
-import Views.Login;
+import main.java.com.uhealth.views.Login;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class FoodAdmin extends JFrame{
     private JPanel panelFoodMain;
@@ -26,7 +31,7 @@ public class FoodAdmin extends JFrame{
     private JButton submitButton;
     private JPanel formPanel;
 
-    ProductsDAO productsDAO = new ProductsDAO();
+
     public FoodAdmin(){
         setContentPane(panelFoodMain);
         setSize(900, 550);
@@ -36,6 +41,8 @@ public class FoodAdmin extends JFrame{
         this.userName.setText(Login.userName);
         // agregar categorias disponibles en el comboBox
         setCategories();
+
+        ProductController productController = new ProductController();
 
 
         this.submitButton.addActionListener(new ActionListener() {
@@ -55,9 +62,8 @@ public class FoodAdmin extends JFrame{
                 System.out.println(name + calories + carbs + categoryId);
 
 
-                Products product = new Products(name,  calories,carbs, categoryId);
-                productsDAO.createProduct(product);
-                JOptionPane.showMessageDialog(null, "Comida creada exitosamente");
+                Product product = new Product(name,  calories,carbs, categoryId);
+                productController.addProduct(product);
                 nameField.setText("");
                 carbsField.setText("");
                 caloriesField.setText("");
@@ -75,13 +81,14 @@ public class FoodAdmin extends JFrame{
     }
 
 
-    public void setCategories(){
+    private void setCategories(){
+        CategoryController categoryController =  new CategoryController();
         //Obtener categorias
-        productsDAO.getCategories();
+        List<Category>  categories = categoryController.getCategories();
         //Agregar categorias al comboBox
-        for(Object[] category : Products.categories){
-            String nombre = category[0].toString() +"-"+category[1].toString();
-            categoryComboBox.addItem(nombre); // nombre
+        for(Category category : categories){
+            String name = category.getId() +"-"+category.getNombre().toString();
+            categoryComboBox.addItem(name); // nombre
         }
     }
 }

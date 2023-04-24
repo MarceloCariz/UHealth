@@ -1,8 +1,8 @@
-package Views;
+package main.java.com.uhealth.views;
 import javax.swing.*;
-import Classes.Database.Conexion;
-import Views.Admin.Admin;
-import Views.Users.User;
+import main.java.com.uhealth.Database.Conexion;
+import main.java.com.uhealth.views.Admin.Admin;
+import main.java.com.uhealth.views.Users.User;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -1,7 +1,7 @@
 package Classes.Admin;
 
-import Classes.Database.Conexion;
-import Views.Login;
+import main.java.com.uhealth.Database.Conexion;
+import main.java.com.uhealth.views.Login;
 
 import javax.swing.table.DefaultTableModel;
 import java.sql.Connection;
@@ -14,36 +14,38 @@ public class RoutinesDAO {
 
     private Connection conexion;
 
-//    Products products = new Products();
-
+    // Conexion de base de datos
     public RoutinesDAO(){
         Connection cn = Conexion.conectar();
         conexion = cn;
     }
 
 
+    /// Crear rutina
     public void createRoutine(Routines routine){
         String query = "INSERT INTO rutinas (fecha, horario, idProducto, idUsuario) VALUES(?,?,?,?)";
         try{
             PreparedStatement statement = conexion.prepareStatement(query);
-            statement.setString(1,routine.getDate());
+            statement.setString(1,routine.getDate()); // Inserta la fecha en el primer ?
             statement.setString(2, routine.getSchedule());
             statement.setInt(3, routine.getIdProduct());
             statement.setInt(4, routine.getIdUser());
 
-            int rowsAffected = statement.executeUpdate();
+            int rowsAffected = statement.executeUpdate(); // filas afectadas
 
+            // Evalua si hubieron cambios
             if(rowsAffected <= 0){
                 System.err.println("Hubo un error");
                 conexion.close();
                 return;
             }
-//            System.out.println("Rutina creada exitosamente");
         }catch (SQLException e){
             System.err.println("Error en la creacion de la rutina"+e);
         }
     }
 
+
+        //Obtener rutinas segun el id del usuario
     public void  getRoutinesByUserId(DefaultTableModel model){
         String query = "SELECT r.id ,r.fecha , r.horario , p.nombre, p.calorias, p.carbohidratos from rutinas r JOIN productos p ON r.idProducto = p.id JOIN usuarios u ON u.id_usuario = r.idUsuario WHERE u.id_usuario = ?"
                 + " " + "ORDER BY r.id desc";

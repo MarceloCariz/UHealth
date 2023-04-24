@@ -1,6 +1,6 @@
 package Classes.Admin;
 
-import Classes.Database.Conexion;
+import main.java.com.uhealth.Database.Conexion;
 
 import java.sql.Connection;
 
@@ -20,3 +20,4 @@ public class ProfileDAO {
         String query = "UPDATE usuarios SET  WHERE";
     }
 }
+

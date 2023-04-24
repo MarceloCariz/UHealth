@@ -1,6 +1,7 @@
 package Classes.Admin;
 
-import Classes.Database.Conexion;
+import main.java.com.uhealth.Database.Conexion;
+import main.java.com.uhealth.models.Product;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class ProductsDAO {
-    Products products = new Products();
+    Product products = new Product();
 
     private Connection conexion;
 
@@ -20,7 +21,7 @@ public class ProductsDAO {
     }
 
 
-    public void createProduct(Products product){
+    public void createProduct(Product product){
         String query = "INSERT INTO productos (nombre, calorias, carbohidratos, idCategoria) VALUES(?,?,?,?)";
         try{
             PreparedStatement  stmt = conexion.prepareStatement(query);
@@ -55,7 +56,7 @@ public class ProductsDAO {
                 categories.add(row);
             }
 
-            Products.categories = categories;
+            Product.categories = categories;
             // todo : cerrar conexion
 
 
@@ -66,10 +67,10 @@ public class ProductsDAO {
 
 
 
-    public List<Products> getProductsByCategory(int categoryId){
+    public List<Product> getProductsByCategory(int categoryId){
         System.out.println(categoryId);
         String query = "SELECT * FROM productos WHERE idCategoria = ?";
-        List<Products> products = new ArrayList<>();
+        List<Product> products = new ArrayList<>();
 
         try{
 
@@ -78,7 +79,7 @@ public class ProductsDAO {
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()){
-                Products product = new Products();
+                Product product = new Product();
                 product.setName(rs.getString("nombre"));
                 product.setCalories(rs.getFloat("calorias"));
                 product.setId(rs.getInt("id"));
@@ -91,7 +92,7 @@ public class ProductsDAO {
                 products.add(product);
             }
 
-            Products.products = products;
+            Product.products = products;
         }catch (SQLException e){
             System.err.println(e);
         }
@@ -100,12 +101,12 @@ public class ProductsDAO {
     }
 
     public float getCaloriesByProduct(String productName){
-        Optional<Products> productFilter= Products.products.stream()
+        Optional<Product> productFilter= Product.products.stream()
                 .filter(product -> product.getName().equals(productName))
                // .map(Products::getCalories) // transforma el objeto Product en un float con el valor de price
                 .findFirst();
         if(productFilter.isPresent()){
-            Products productsInfo = productFilter.get();
+            Product productsInfo = productFilter.get();
             float calories = productsInfo.getCalories();
 //            products.setId(productsInfo.getId());
             Routines.idProduct = productsInfo.getId();

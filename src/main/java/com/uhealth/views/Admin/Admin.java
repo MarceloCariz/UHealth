@@ -1,12 +1,13 @@
-package Views.Admin;
+package main.java.com.uhealth.views.Admin;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import Classes.Admin.Users;
+import main.java.com.uhealth.controllers.UserController;
+import main.java.com.uhealth.models.User;
 import Classes.Admin.UserDAO;
-import Views.Login;
+import main.java.com.uhealth.views.Login;
 
 public class Admin extends JFrame{
     private JPanel panel1;
@@ -28,6 +29,7 @@ public class Admin extends JFrame{
     private JLabel rolLabel;
 
     UserDAO userDAO = new UserDAO();
+
     public Admin(){
         setContentPane(panel1);
         setSize(900, 550);
@@ -47,26 +49,27 @@ public class Admin extends JFrame{
                 String phone = phoneField.getText();
                 String password = passField.getText();
                 String rolValue = rolcomboBox.getSelectedItem().toString();
-                System.out.println(rolValue);
+                if(nameField.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null, "Falta el nombre");
+                    return;
+                }
+                System.out.println(password);
                 int idRol = 0;
                 switch (rolValue){
                     case "administrador":
                         idRol = 1;
                         break;
-                    case "cliente":
+                    case "usuario":
                         idRol = 2;
-                        break;
-                    case  "maestro":
-                        idRol = 3;
                         break;
                     default:
                         System.out.println("Rol desconocido: " + rolValue);
                         break;
                 }
 
-                Users user = new Users(name, email, phone, password, idRol);
-                userDAO.createUser(user);
-                JOptionPane.showMessageDialog(null, "Usuario creado Correctamente");
+                UserController userController = new UserController();
+                User user = new User(name, email, password, phone, idRol);
+                userController.addUser(user);
                 nameField.setText("");
                 emailField.setText("");
                 phoneField.setText("");

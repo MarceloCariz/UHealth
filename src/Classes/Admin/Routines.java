@@ -9,7 +9,7 @@ public class Routines {
 
     private int idUser;
 
-    public static int idProduct;
+    public static int idProduct; // Routine routein = new Routines(); Routine.idProduct
 
     public Routines(){}
 

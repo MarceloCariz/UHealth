@@ -1,7 +1,6 @@
-package Views.Users;
+package main.java.com.uhealth.views.Users;
 
-import Classes.Admin.Routines;
-import Views.Login;
+import main.java.com.uhealth.views.Login;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

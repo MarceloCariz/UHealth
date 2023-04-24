@@ -1,8 +1,8 @@
-package Views.Users;
+package main.java.com.uhealth.views.Users;
 
 import Classes.Admin.*;
-import Views.Login;
-import Views.Users.Food;
+import main.java.com.uhealth.models.Product;
+import main.java.com.uhealth.views.Login;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -37,7 +37,7 @@ public class User extends JFrame{
 
 
     ProductsDAO productsDAO = new ProductsDAO();
-    Products products = new Products();
+    Product products = new Product();
 
     Routines routines = new Routines();
 
@@ -61,7 +61,7 @@ public class User extends JFrame{
                 String nameCategory = categoryBox.getSelectedItem().toString();
                 int categoryId = Character.getNumericValue(nameCategory.charAt(0));
                 // Limpiar resultados anteriores
-                if(Products.products != null && !Products.products.isEmpty()){
+                if(Product.products != null && !Product.products.isEmpty()){
                     selectBox.removeAllItems();
                 }
 //                products.setCategory(nameCategory);
@@ -121,15 +121,15 @@ public class User extends JFrame{
         //Obtener categorias
         productsDAO.getCategories();
         //Agregar categorias al comboBox
-        for(Object[] category : Products.categories){
+        for(Object[] category : Product.categories){
             String nombre = category[0].toString() +"-"+category[1].toString();
             categoryBox.addItem(nombre); // nombre
         }
     }
 
     public void  setProductsByCategory(int categoryId){
-        List<Products>  products =  productsDAO.getProductsByCategory(categoryId);
-        for(Products product : products){
+        List<Product>  products =  productsDAO.getProductsByCategory(categoryId);
+        for(Product product : products){
 //            selectBox.setName(product.getId());// id
             selectBox.addItem(product.getName()); /// nombre
         }

@@ -1,4 +1,4 @@
-package Classes.Database;
+package main.java.com.uhealth.Database;
 import java.sql.*;
 public class Conexion {
     ///Conexion local
