@@ -4,6 +4,7 @@ import main.java.com.uhealth.dao.RoutineDao;
 import main.java.com.uhealth.models.Routine;
 
 import javax.swing.*;
+import java.util.List;
 
 public class RoutineService {
     private RoutineDao routineDao;
@@ -18,5 +19,9 @@ public class RoutineService {
             return;
         }
         JOptionPane.showMessageDialog(null, "Hubo un error en la creacion de la rutina");
+    }
+
+    public List<Routine> getRoutinesByUser(int userId){
+        return routineDao.get(userId);
     }
 }

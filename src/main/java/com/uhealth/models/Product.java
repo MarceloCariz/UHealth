@@ -7,9 +7,9 @@ public class Product {
     private int id;
     private String category;
     private int categoryId;
-    private String name;
-    private float calories;
-    private float carbs; // carbohidratos
+    protected String name;
+    protected float calories;
+    protected float carbs; // carbohidratos
 
     public static List<Object[]> categories;
 

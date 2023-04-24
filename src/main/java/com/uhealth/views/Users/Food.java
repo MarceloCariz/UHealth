@@ -1,7 +1,9 @@
 package main.java.com.uhealth.views.Users;
 
-import Classes.Admin.RoutinesDAO;
 import main.java.com.uhealth.Database.Conexion;
+import main.java.com.uhealth.controllers.RoutineController;
+import main.java.com.uhealth.dao.RoutineDao;
+import main.java.com.uhealth.models.Routine;
 import main.java.com.uhealth.views.Login;
 
 import javax.swing.*;
@@ -11,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
+import java.util.List;
 
 public class Food extends JFrame {
     private JPanel foodPanel;
@@ -26,7 +29,7 @@ public class Food extends JFrame {
     private JTable jTableRoutines;
 
     DefaultTableModel model = new DefaultTableModel();
-    RoutinesDAO routinesDAO = new RoutinesDAO();
+    RoutineController routineController = new RoutineController();
 
     private Connection conexion;
 
@@ -44,17 +47,12 @@ public class Food extends JFrame {
         scheduleField.setText(User.time);
         this.userName.setText(Login.userName);
         this.userName.setText(Login.userName);
+
         jTableRoutines = new JTable(model);
         scrollPanel.setViewportView(jTableRoutines);
-        model.addColumn("Id");
-        model.addColumn("Fecha");
-        model.addColumn("Horario");
-        model.addColumn("Comida");
-        model.addColumn("Calorias");
-        model.addColumn("Carbohidratos");
+        executeTableRoutine(); // Funcion que llama el llenado de la tabla
 
-        //Obtener la rutinas del usuario
-        routinesDAO.getRoutinesByUserId(model);
+
 
 
         jTableRoutines.addMouseListener(new MouseAdapter() {
@@ -76,6 +74,26 @@ public class Food extends JFrame {
                 new User().setVisible(true);
             }
         });
+
+    }
+
+    private void executeTableRoutine(){
+        // Tabla de las rutinas
+
+        model.addColumn("Id");
+        model.addColumn("Fecha");
+        model.addColumn("Horario");
+        model.addColumn("Comida");
+        model.addColumn("Calorias");
+        model.addColumn("Carbohidratos");
+
+        //Obtener la rutinas del usuario
+        List<Routine> routines = routineController.getRoutinesByUser(Login.userId);
+
+        for (Routine routine : routines){
+            Object[] rowData = {routine.getId(), routine.getDate(), routine.getSchedule(), routine.getName(), routine.getCalories(), routine.getCarbs()};
+            model.addRow(rowData);
+        }
 
 
     }

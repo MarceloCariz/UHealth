@@ -1,15 +1,19 @@
 package main.java.com.uhealth.models;
 
-public class Routine {
+public class Routine extends Product{
     private int id;
     private String date;
     private String schedule;
 
-//    private int idProduct;
-
     private int idUser;
 
-    public static int idProduct; // Routine routein = new Routines(); Routine.idProduct
+    private  int idProduct;
+
+
+
+
+
+
 
     public Routine(){}
 
@@ -22,12 +26,13 @@ public class Routine {
     }
 
     // Obtener rutina  - contructor
-    public Routine(int id , String date, String schedule, int idProduct, int idUser){
+    public Routine(int id , String date, String schedule, String name , float calories, float carbs){
         this.id = id;
         this.date = date;
         this.schedule = schedule;
-        this.idProduct = idProduct;
-        this.idUser = idUser;
+        this.name = name;
+        this.calories = calories;
+        this.carbs =carbs;
     }
 
 
@@ -45,6 +50,14 @@ public class Routine {
 
     public void setIdUser(int idUser) {
         this.idUser = idUser;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDate() {
