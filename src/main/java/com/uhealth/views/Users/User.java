@@ -1,7 +1,12 @@
 package main.java.com.uhealth.views.Users;
 
 import Classes.Admin.*;
+import main.java.com.uhealth.controllers.CategoryController;
+import main.java.com.uhealth.controllers.ProductController;
+import main.java.com.uhealth.controllers.RoutineController;
+import main.java.com.uhealth.models.Category;
 import main.java.com.uhealth.models.Product;
+import main.java.com.uhealth.models.Routine;
 import main.java.com.uhealth.views.Login;
 
 import javax.swing.*;
@@ -11,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 public class User extends JFrame{
     private JPanel userPanel;
@@ -36,12 +42,12 @@ public class User extends JFrame{
     public static  String date;
 
 
-    ProductsDAO productsDAO = new ProductsDAO();
-    Product products = new Product();
+    CategoryController categoryController = new CategoryController();
+    RoutineController routineController = new RoutineController();
 
-    Routines routines = new Routines();
+    ProductController productController = new ProductController();
+    private  List<Product>  products;
 
-    RoutinesDAO routinesDAO = new RoutinesDAO();
     public User(){
 
         setContentPane(userPanel);
@@ -61,12 +67,8 @@ public class User extends JFrame{
                 String nameCategory = categoryBox.getSelectedItem().toString();
                 int categoryId = Character.getNumericValue(nameCategory.charAt(0));
                 // Limpiar resultados anteriores
-                if(Product.products != null && !Product.products.isEmpty()){
-                    selectBox.removeAllItems();
-                }
-//                products.setCategory(nameCategory);
+                selectBox.removeAllItems();
                 setProductsByCategory(categoryId);
-                products.setCategoryId(categoryId);
             }
         });
 
@@ -75,12 +77,9 @@ public class User extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if(selectBox.getModel().getSize() == 0) return;
                 String productName = selectBox.getSelectedItem().toString();
-                products.setName(productName);
-                float calories = productsDAO.getCaloriesByProduct(productName);
-//                System.out.println(products.getCalories());
-                products.setCalories(calories);
-                String caloriesText = Float.toString(calories);
-                caloriesField.setText(caloriesText);
+                Product product = getInfoByProductName(productName);
+                String calories = Float.toString(product.getCalories());
+                caloriesField.setText(calories);
             }
         });
 
@@ -88,13 +87,14 @@ public class User extends JFrame{
         this.submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               String date = dateField.getText();
-               String time = scheduleField.getText();
-               int idProduct = Routines.idProduct;
-               int idUser = Login.userId;
-               Routines routines = new Routines(date, time, idProduct, idUser);
-               routinesDAO.createRoutine(routines);
-               JOptionPane.showMessageDialog(null, "Rutina creada Correctamente");
+                String productName = selectBox.getSelectedItem().toString();
+                Product productInfo = getInfoByProductName(productName);
+                String date = dateField.getText();
+                String time = scheduleField.getText();
+                int idProduct = productInfo.getId();
+                int idUser = Login.userId;
+                Routine routine = new Routine(date, time, idProduct, idUser);
+                routineController.createRoutine(routine);
             }
         });
 
@@ -119,21 +119,32 @@ public class User extends JFrame{
 
     public void setCategories(){
         //Obtener categorias
-        productsDAO.getCategories();
+        List<Category> categories = categoryController.getCategories();
         //Agregar categorias al comboBox
-        for(Object[] category : Product.categories){
-            String nombre = category[0].toString() +"-"+category[1].toString();
-            categoryBox.addItem(nombre); // nombre
+        for(Category category : categories){
+            String name = category.getId() +"-"+category.getNombre().toString();
+            categoryBox.addItem(name); // nombre
         }
     }
 
+
+
     public void  setProductsByCategory(int categoryId){
-        List<Product>  products =  productsDAO.getProductsByCategory(categoryId);
+        products = productController.getProductsByCategoryId(categoryId);
         for(Product product : products){
-//            selectBox.setName(product.getId());// id
             selectBox.addItem(product.getName()); /// nombre
         }
+    }
 
+    private Product getInfoByProductName(String productName){
+        Optional<Product>  productsFilter = products.stream()
+                .filter(product -> product.getName().equals(productName)).findFirst();
+        if(productsFilter.isPresent()){
+            Product productInfo = productsFilter.get();
+            return  productInfo;
+        }
+
+        return  productsFilter.get();
     }
     public void Time(){
         // Hora

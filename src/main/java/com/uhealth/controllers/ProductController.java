@@ -3,6 +3,8 @@ package main.java.com.uhealth.controllers;
 import main.java.com.uhealth.models.Product;
 import main.java.com.uhealth.service.ProductService;
 
+import java.util.List;
+
 public class ProductController {
     private ProductService productService;
 
@@ -12,5 +14,9 @@ public class ProductController {
 
     public void addProduct (Product product){
         productService.createProduct(product);
+    }
+
+    public List<Product> getProductsByCategoryId(int categoryId){
+        return productService.getProductByCategoryId(categoryId);
     }
 }

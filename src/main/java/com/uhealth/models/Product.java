@@ -24,6 +24,13 @@ public class Product {
         this.categoryId = categoryId;
     }
 
+    //get Products user by category id
+    public Product(int id, String name ,float calories){
+        this.id = id;
+        this.name = name;
+        this.calories = calories;
+    }
+
     public int getId() {
         return id;
     }
