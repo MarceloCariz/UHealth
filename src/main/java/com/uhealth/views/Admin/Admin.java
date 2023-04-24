@@ -3,6 +3,8 @@ package main.java.com.uhealth.views.Admin;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import main.java.com.uhealth.controllers.UserController;
 import main.java.com.uhealth.models.User;
@@ -28,7 +30,9 @@ public class Admin extends JFrame{
     private JComboBox rolcomboBox;
     private JLabel rolLabel;
 
-    UserDAO userDAO = new UserDAO();
+
+    UserController userController = new UserController();
+
 
     public Admin(){
         setContentPane(panel1);
@@ -48,27 +52,23 @@ public class Admin extends JFrame{
                 String email = emailField.getText();
                 String phone = phoneField.getText();
                 String password = passField.getText();
-                String rolValue = rolcomboBox.getSelectedItem().toString();
-                if(nameField.getText().isEmpty()){
-                    JOptionPane.showMessageDialog(null, "Falta el nombre");
+                // Validar campos vacios
+                boolean isValid = validateFields();
+                if(!isValid) return;
+
+                //Validar email
+                boolean isValidEmail = validateEmail(email);
+                if(!isValidEmail){
+                    JOptionPane.showMessageDialog(null, "El email no es valido");
                     return;
                 }
-                System.out.println(password);
-                int idRol = 0;
-                switch (rolValue){
-                    case "administrador":
-                        idRol = 1;
-                        break;
-                    case "usuario":
-                        idRol = 2;
-                        break;
-                    default:
-                        System.out.println("Rol desconocido: " + rolValue);
-                        break;
-                }
 
-                UserController userController = new UserController();
-                User user = new User(name, email, password, phone, idRol);
+                //Validar telefono
+                boolean isValidPhone = isValidPhone(phone);
+                if(!isValidPhone) return;
+
+                int rolId  = selectIdRol();
+                User user = new User(name, email, password, phone, rolId);
                 userController.addUser(user);
                 nameField.setText("");
                 emailField.setText("");
@@ -88,6 +88,45 @@ public class Admin extends JFrame{
                 new FoodAdmin().setVisible(true);
             }
         });
+    }
 
+    private int selectIdRol(){
+        String rolValue = rolcomboBox.getSelectedItem().toString();
+        int idRol = 0;
+        switch (rolValue){
+            case "administrador":
+                idRol = 1;
+                break;
+            case "usuario":
+                idRol = 2;
+                break;
+            default:
+                System.out.println("Rol desconocido: " + rolValue);
+                break;
+        }
+        return  idRol;
+    }
+    private boolean validateFields(){
+        if(nameField.getText().isEmpty() || emailField.getText().isEmpty() || phoneField.getText().isEmpty() || passField.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Por favor llenar todos los campos");
+            return  false;
+        }
+
+        return  true;
+    }
+
+    private boolean validateEmail(String email){
+        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    private boolean isValidPhone(String phone){
+        if(!phone.matches("\\d+") || (phone.length() == 9) == false){ //que significa "uno o más dígitos numéricos".
+            JOptionPane.showMessageDialog(null, "Formato de numero incorrecto: Revise que sean numeros y no mayor o menor a 9 digitos");
+            return false;
+        }
+        return true;
     }
 }
