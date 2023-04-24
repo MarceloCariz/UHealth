@@ -29,6 +29,7 @@ public class Profile extends JFrame {
     private JLabel imcField;
     private JButton saveProfileButton;
     private JButton addFoodButton;
+    private JPanel profileForm;
 
     public Profile(){
         setContentPane(profileMainPanel);

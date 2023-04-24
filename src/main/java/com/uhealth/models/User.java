@@ -9,6 +9,8 @@ public class User {
     private String phone;
     private int idRol;
 
+    private int idPerfil;
+
     public User(){};
 
 

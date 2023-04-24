@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDao {
+public class UserDao extends ProfileDao{
     private Connection conexion;
 
     public UserDao(){
@@ -18,8 +18,10 @@ public class UserDao {
     }
 
     public boolean create(User user){
-        String query = "INSERT INTO usuarios (nombre, email, password, telefono, idRol) VALUES(?, ? , ? , ? , ?)";
+        String query = "INSERT INTO usuarios (nombre, email, password, telefono, idRol, idPerfil) VALUES(?, ? , ? , ? , ?, ?)";
         try{
+            //Obterner id perfil
+            int idProfile = this.createProfile();
             // Preparar para crear usuario
             PreparedStatement statement = conexion.prepareStatement(query);
             statement.setString(1, user.getName()); // Inserta el nombre en el 1 ?
@@ -27,6 +29,7 @@ public class UserDao {
             statement.setString(3, user.getPassword());
             statement.setString(4, user.getPhone());
             statement.setInt(5, user.getIdRol());
+            statement.setInt(6, idProfile);
             int result = statement.executeUpdate();
 
             return result > 0;//result > 0 ? true : false
