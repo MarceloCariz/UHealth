@@ -87,6 +87,8 @@ public class User extends JFrame{
         this.submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                boolean isValid = validateFields();
+                if(!isValid) return;
                 String productName = selectBox.getSelectedItem().toString();
                 Product productInfo = getInfoByProductName(productName);
                 String date = dateField.getText();
@@ -117,6 +119,15 @@ public class User extends JFrame{
     }
 
 
+    /// FUNCIONES
+
+    private boolean validateFields(){
+        if(caloriesField.getText().isEmpty() || categoryBox.getSelectedItem().equals("") || selectBox.getSelectedItem() == null){
+            JOptionPane.showMessageDialog(null, "Por favor llenar todos los campos");
+            return  false;
+        }
+        return  true;
+    }
     public void setCategories(){
         //Obtener categorias
         List<Category> categories = categoryController.getCategories();
