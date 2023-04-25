@@ -32,6 +32,8 @@ public class ProfileV extends JFrame {
     private JButton saveProfileButton;
     private JButton addFoodButton;
     private JPanel profileForm;
+    private JComboBox genderComboBox;
+    private JLabel genderLabel;
 
     public ProfileV(){
         setContentPane(profileMainPanel);
@@ -40,6 +42,11 @@ public class ProfileV extends JFrame {
         setTitle("Perfil - "+ Login.userName);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.userName.setText(Login.userName);
+        ProfileController profileController =  new ProfileController();
+        Profile profileInfo = profileController.getProfile(Login.userId);
+
+        //Llenar form
+        fillFormProfile(profileInfo);
 
 
         this.saveProfileButton.addActionListener(new ActionListener() {
@@ -51,11 +58,11 @@ public class ProfileV extends JFrame {
 
                 float imc  = weight / (height * height);// peso / altura * altura
                 imcField.setText(Float.toString(imc));
-                ProfileController profileController =  new ProfileController();
 
-                Profile profileInfo = profileController.getProfile(Login.userId);
+                char gender = getGenderComboBox();
 
-                Profile profile = new Profile(profileInfo.getId(),age, weight, height, imc, 'M');
+
+                Profile profile = new Profile(profileInfo.getId(),age, weight, height, imc, gender);
 
 
                 profileController.updateProfile(profile);
@@ -78,5 +85,33 @@ public class ProfileV extends JFrame {
                 new Food().setVisible(true);
             }
         });
+    }
+
+        private char getGenderComboBox(){
+        String selectComboBox = genderComboBox.getSelectedItem().toString();
+        if(selectComboBox == "Hombre"){
+            return 'H';
+        }else {
+            return 'M';
+        }
+    }
+    private void fillFormProfile(Profile profile){
+        String age = Integer.toString(profile.getAge());
+        String weight = Float.toString(profile.getWeight());
+        String height = Float.toString(profile.getHeight());
+        String imc = Float.toString(profile.getImc());
+        char gender = profile.getGender();
+        if(gender == 'H'){
+            genderComboBox.setSelectedIndex(0);
+        }
+        if(gender == 'M'){
+            genderComboBox.setSelectedIndex(1);
+        }
+
+
+        ageField.setText(age);
+        weightField.setText(weight);
+        heightField.setText(height);
+        imcField.setText(imc);
     }
 }

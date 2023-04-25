@@ -32,7 +32,6 @@ public class UserDao{
             statement.setInt(6, idProfile);
             int result = statement.executeUpdate();
 
-            conexion.close();
             return result > 0;//result > 0 ? true : false
         }catch (SQLException e){
             System.err.println("Error en la creacion de usuario"+e);
@@ -57,7 +56,6 @@ public class UserDao{
                 User user = new User(id, name, email, phone, rolId);
                 users.add(user);
             }
-            conexion.close();
         }catch (SQLException e){
             System.err.println("Error en la creacion de usuario"+e);
         }

@@ -63,7 +63,6 @@ public class ProfileDao {
             if(rs.next()){
                 idProfile = rs.getInt(1);
             }
-            conexion.close();
         }catch (SQLException e){
             System.err.println("Error al crear el perfil" + e);
         }

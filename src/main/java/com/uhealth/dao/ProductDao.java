@@ -28,7 +28,6 @@ public class ProductDao {
             statement.setInt(4,product.getCategoryId());
 
             int result = statement.executeUpdate();
-            conexion.close();
             return result > 0;
         }catch (SQLException e){
             System.err.println(e);
@@ -56,7 +55,6 @@ public class ProductDao {
                 Product product = new Product(id, name, calories);
                 products.add(product);
             }
-            conexion.close();
 
         }catch (SQLException e){
             System.err.println(e);

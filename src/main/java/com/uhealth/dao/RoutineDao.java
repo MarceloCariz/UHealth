@@ -27,7 +27,6 @@ public class RoutineDao {
             statement.setInt(4, routine.getIdUser());
 
             int result = statement.executeUpdate(); // filas afectadas
-            conexion.close();
             return result > 0; //result > 0 ? true : false
         }catch (SQLException e){
             System.err.println("Error en la creacion de la rutina"+e);
@@ -61,7 +60,6 @@ public class RoutineDao {
                 Routine routine =  new Routine(id, date, time, name, calories, carbs);
                 routines.add(routine);
             }
-            conexion.close();
         }catch (SQLException e){
             System.err.println("Error en la obtencion de las rutinas"+e);
         }

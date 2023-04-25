@@ -31,7 +31,6 @@ public class CategoryDao {
                 Category category = new Category(id, name);
                 categories.add(category);
             }
-            conexion.close();
         }catch (SQLException e){
             System.err.println("Error en la obtencion de categorias"+e);
         }
