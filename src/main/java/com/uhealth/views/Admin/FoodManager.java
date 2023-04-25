@@ -17,9 +17,12 @@ public class FoodManager extends JFrame{
     private JButton userManagerButton;
     private JButton addFoodButton;
     private JButton createUserButton;
-    private JTable jTableUsers;
+    private JTable jTableFoods;
     private JPanel mainPanel;
     private JScrollPane scrollPanel;
+    private JButton deleteFoodButton;
+    private JButton updateFoodButton;
+    private JPanel actionsPanel;
 
     DefaultTableModel model = new DefaultTableModel();
     ProductController productController = new ProductController();
@@ -32,10 +35,25 @@ public class FoodManager extends JFrame{
         this.userName.setText(Login.userName);
         this.userName.setText(Login.userName);
         this.userName.setText(Login.userName);
-        jTableUsers = new JTable(model);
-        scrollPanel.setViewportView(jTableUsers);
+        jTableFoods = new JTable(model);
+        scrollPanel.setViewportView(jTableFoods);
+        //Definit columnas
+        model.addColumn("Id");
+        model.addColumn("Nombre");
+        model.addColumn("Calorias");
+        model.addColumn("Carbohidratos");
+        model.addColumn("Categoria");
         //LLenar tabla
         this.executeTableFoodManager();
+
+
+        //Eliminar Comida
+        this.deleteFoodButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                deleteFood();
+            }
+        });
 
 
 
@@ -64,13 +82,25 @@ public class FoodManager extends JFrame{
         });
     }
 
+
+    private void deleteFood(){
+        int selectedFood = jTableFoods.getSelectedRow();
+
+        int id = (int) model.getValueAt(selectedFood, 0); // 0 = id
+        String nameProduct = (String) model.getValueAt(selectedFood, 1); // 1 = nombre
+
+        int result = JOptionPane.showConfirmDialog(null, "Aceptar para eliminar la comida: "+ nameProduct , "Aceptar",JOptionPane.YES_NO_OPTION);
+
+        if(result == JOptionPane.YES_OPTION){
+            productController.deleteProduct(id);
+            model.setRowCount(0);
+            executeTableFoodManager();
+        }
+
+    }
+
     private void executeTableFoodManager(){
-        //Definit columnas
-        model.addColumn("Id");
-        model.addColumn("Nombre");
-        model.addColumn("Calorias");
-        model.addColumn("Carbohidratos");
-        model.addColumn("Categoria");
+
 
         List<Product> products = productController.getProducts();
 

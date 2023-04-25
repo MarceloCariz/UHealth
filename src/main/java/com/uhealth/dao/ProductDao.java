@@ -36,6 +36,21 @@ public class ProductDao {
         }
     }
 
+    public boolean deleteProduct(int idProduct){
+        String query = "DELETE  FROM productos WHERE id = ?";
+        try {
+            PreparedStatement statement = conexion.prepareStatement(query);
+            statement.setInt(1, idProduct);
+            int result = statement.executeUpdate();
+            return result > 0;
+        }catch (SQLException e){
+            System.err.println("Error en la elimincacion de producto"+e);
+            return false;
+        }
+    }
+
+
+
     public List<Product> getProducts(){
         String query = "SELECT p.*, c.nombre categoria  from productos p JOIN categorias c ON p.idCategoria = c.id";
         List<Product> products = new ArrayList<>();
