@@ -22,6 +22,10 @@ public class UserController {
         userService.createUser(user);
     }
 
+    public void updateUser(User user) {userService.updateUser(user);}
+
+    public void deleteUser(int userId) {userService.deleteUser(userId);}
+
     public List<User> getUsers(){
         return userService.getUsers();
     }

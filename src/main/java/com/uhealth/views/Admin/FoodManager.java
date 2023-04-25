@@ -117,6 +117,10 @@ public class FoodManager extends JFrame{
     }
     private void deleteFood(){
         int selectedFood = jTableFoods.getSelectedRow();
+        if(selectedFood == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor seleccione una fila");
+            return;
+        };
 
         int id = (int) model.getValueAt(selectedFood, 0); // 0 = id
         String nameProduct = (String) model.getValueAt(selectedFood, 1); // 1 = nombre

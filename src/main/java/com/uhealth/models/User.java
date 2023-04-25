@@ -33,6 +33,14 @@ public class User {
         this.idRol = idRol;
     }
 
+    //Constructor actualizar
+    public User(int id, String name, String phone, String email){
+        this.id = id;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+    }
+
     // Constructor crear
     public User( String name, String email ,String password , String phone, int idRol){
         this.name = name;

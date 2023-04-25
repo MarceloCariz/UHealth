@@ -39,6 +39,37 @@ public class UserDao{
         }
     }
 
+    public boolean updateUser(User user){
+        String query = "UPDATE usuarios SET nombre = ? , telefono = ?, email = ?  WHERE id_usuario = ?";
+        try{
+            PreparedStatement statement = conexion.prepareStatement(query);
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getPhone());
+            statement.setString(3, user.getEmail());
+            statement.setInt(4, user.getId());
+
+            int result = statement.executeUpdate();
+            return  result > 0;
+        }catch (SQLException e){
+            System.err.println("Error en la eliminacion de usuario"+e);
+            return false;
+        }
+    }
+
+    public boolean deleteUser(int userId){
+        String query = "DELETE FROM usuarios WHERE id_usuario = ?";
+        try{
+            PreparedStatement statement = conexion.prepareStatement(query);
+            statement.setInt(1, userId);
+
+            int result = statement.executeUpdate();
+            return  result > 0;
+        }catch (SQLException e){
+            System.err.println("Error en la eliminacion de usuario"+e);
+            return false;
+        }
+    }
+
     public List<User> getUsers(){
         String query = "SELECT * FROM usuarios";
         List<User> users = new ArrayList<>();
