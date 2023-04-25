@@ -48,9 +48,9 @@ public class UserDao{
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()){
-                int id = rs.getInt("id");
+                int id = rs.getInt("id_usuario");
                 String name = rs.getString("nombre");
-                String email = rs.getString("correo");
+                String email = rs.getString("email");
                 String phone = rs.getString("telefono");
                 int rolId = rs.getInt("idRol");
                 User user = new User(id, name, email, phone, rolId);
