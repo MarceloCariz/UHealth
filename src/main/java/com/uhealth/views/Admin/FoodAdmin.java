@@ -47,11 +47,14 @@ public class FoodAdmin extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                //Validacion campos vacios
+                boolean isEmpty = validateForm();
+                if(!isEmpty) return;
 
-                if(nameField.getText().isEmpty() || carbsField.getText().isEmpty() || caloriesField.getText().isEmpty() ){
-                    JOptionPane.showMessageDialog(null, "LLene todos los campos por favor");
-                    return;
-                }
+                //Validacion numero calories y carbs
+                boolean isValidNumber = validateCarbsAndCalories();
+                if(!isValidNumber) return;
+
                 String name = nameField.getText();
                 float carbs = Float.parseFloat(carbsField.getText());
                 float calories  = Float.parseFloat(caloriesField.getText());
@@ -89,4 +92,24 @@ public class FoodAdmin extends JFrame{
             categoryComboBox.addItem(name); // nombre
         }
     }
+
+    private boolean validateForm(){
+        if(nameField.getText().isEmpty() || carbsField.getText().isEmpty() || caloriesField.getText().isEmpty()){
+//            if(caloriesField.getText().)
+            JOptionPane.showMessageDialog(null, "LLene todos los campos por favor");
+            return false;
+        }
+        return true;
+    }
+
+    private  boolean validateCarbsAndCalories(){
+        String carbs = carbsField.getText().toString();
+        String calories = caloriesField.getText().toString();
+        if(!carbs.matches("\\d+") || !calories.matches("\\d+")){ //que significa "uno o más dígitos numéricos".
+            JOptionPane.showMessageDialog(null, "Calorias o Carbohidratos deben ser numeros");
+            return false;
+        }
+        return true;
+    }
+
 }
