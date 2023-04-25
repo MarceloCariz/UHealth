@@ -47,6 +47,15 @@ public class FoodManager extends JFrame{
         this.executeTableFoodManager();
 
 
+
+        //Actualizar Comida
+        this.updateFoodButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateFood();
+            }
+        });
+
         //Eliminar Comida
         this.deleteFoodButton.addActionListener(new ActionListener() {
             @Override
@@ -82,7 +91,30 @@ public class FoodManager extends JFrame{
         });
     }
 
+    private void updateFood(){
+        int selectedFood = jTableFoods.getSelectedRow();
 
+        if(selectedFood == -1) {
+            JOptionPane.showMessageDialog(null, "Por favor seleccione una fila");
+            return;
+        };
+        int id = (int) model.getValueAt(selectedFood, 0); // 0 = id
+        String nameProduct = (String) model.getValueAt(selectedFood, 1); // 1 = nombre
+        String caloriesString = (String) model.getValueAt(selectedFood, 2); //Calorias
+        String carbsString = (String) model.getValueAt(selectedFood, 3); // carbs
+
+
+        float calories = Float.parseFloat(caloriesString);
+        float carbs = Float.parseFloat(carbsString);
+
+        Product product = new Product(id, nameProduct, calories, carbs);
+
+        productController.updateProduct(product);
+        model.setRowCount(0);
+        executeTableFoodManager();
+
+
+    }
     private void deleteFood(){
         int selectedFood = jTableFoods.getSelectedRow();
 
@@ -105,7 +137,7 @@ public class FoodManager extends JFrame{
         List<Product> products = productController.getProducts();
 
         for (Product product : products){
-            Object[] rowData = {product.getId(), product.getName(), product.getCalories(), product.getCarbs(), product.getNombre()};
+            Object[] rowData = {product.getId(), product.getName(), Float.toString(product.getCalories()) ,Float.toString(product.getCarbs()) , product.getNombre()};
             model.addRow(rowData);
         }
         // todo: checkNombreFruta

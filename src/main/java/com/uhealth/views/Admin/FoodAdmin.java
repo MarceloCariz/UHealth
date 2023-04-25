@@ -28,6 +28,8 @@ public class FoodAdmin extends JFrame{
     private JComboBox categoryComboBox;
     private JButton submitButton;
     private JPanel formPanel;
+    private JButton usersMangerButton;
+    private JButton foodManagerButton;
 
 
     public FoodAdmin(){
@@ -77,6 +79,22 @@ public class FoodAdmin extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 new Admin().setVisible(true);
+            }
+        });
+
+        this.foodManagerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new FoodManager().setVisible(true);
+            }
+        });
+
+        this.usersMangerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new UserManager().setVisible(true);
             }
         });
     }

@@ -16,6 +16,8 @@ public class ProductController {
         productService.createProduct(product);
     }
 
+    public void updateProduct(Product product) {productService.updateProduct(product);}
+
     public void deleteProduct(int idProduct) {productService.deleteProduct(idProduct);}
 
     public List<Product> getProducts(){

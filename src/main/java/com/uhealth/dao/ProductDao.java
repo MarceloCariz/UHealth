@@ -36,6 +36,23 @@ public class ProductDao {
         }
     }
 
+    public boolean updateProduct(Product product){
+        String query = "UPDATE productos SET nombre = ? , calorias = ? , carbohidratos = ? WHERE id = ?";
+        try {
+            PreparedStatement statement = conexion.prepareStatement(query);
+            statement.setString(1, product.getName());
+            statement.setFloat(2, product.getCalories());
+            statement.setFloat(3, product.getCarbs());
+            statement.setInt(4, product.getId());
+
+            int result = statement.executeUpdate();
+            return result > 0;
+        }catch (SQLException e){
+            System.err.println("Error en la actualizacion de producto"+e);
+            return false;
+        }
+    }
+
     public boolean deleteProduct(int idProduct){
         String query = "DELETE  FROM productos WHERE id = ?";
         try {

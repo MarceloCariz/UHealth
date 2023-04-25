@@ -17,6 +17,13 @@ public class Product extends Category{
 
     public Product(){};
 
+    //Actualizar producto - contructor
+    public Product(int id ,String name,  float calories, float carbs){
+        this.id = id;
+        this.name = name;
+        this.calories = calories;
+        this.carbs = carbs;
+    }
 
     //GetAll products
     public Product(int id ,String name,  float calories, float carbs, String category){

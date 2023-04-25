@@ -20,6 +20,14 @@ public class ProductService {
         JOptionPane.showMessageDialog(null, "Hubo un error en la creacion del producto");
     }
 
+    public void updateProduct(Product product){
+        if(productDao.updateProduct(product)){
+            JOptionPane.showMessageDialog(null, "Producto actualizado correctamente");
+            return;
+        }
+        JOptionPane.showMessageDialog(null, "Hubo un error en la actualizacion del producto");
+    }
+
     public void deleteProduct(int idProduct){
         if(productDao.deleteProduct(idProduct)){
             JOptionPane.showMessageDialog(null, "Producto eliminado correctamente");
