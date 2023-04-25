@@ -2,7 +2,7 @@ package main.java.com.uhealth.models;
 
 import java.util.List;
 
-public class Product {
+public class Product extends Category{
 
     private int id;
     private String category;
@@ -17,6 +17,15 @@ public class Product {
 
     public Product(){};
 
+
+    //GetAll products
+    public Product(int id ,String name,  float calories, float carbs, String category){
+        this.id = id;
+        this.name = name;
+        this.calories = calories;
+        this.carbs = carbs;
+        this.nombre = category;
+    }
     public Product(String name, float calories, float carbs, int categoryId){
         this.name = name;
         this.calories = calories;

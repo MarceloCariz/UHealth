@@ -16,6 +16,9 @@ public class ProductController {
         productService.createProduct(product);
     }
 
+    public List<Product> getProducts(){
+        return productService.getProducts();
+    }
     public List<Product> getProductsByCategoryId(int categoryId){
         return productService.getProductByCategoryId(categoryId);
     }

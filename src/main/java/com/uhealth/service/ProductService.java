@@ -20,6 +20,10 @@ public class ProductService {
         JOptionPane.showMessageDialog(null, "Hubo un error en la creacion del producto");
     }
 
+    public List<Product> getProducts(){
+        return productDao.getProducts();
+    }
+
     public List<Product> getProductByCategoryId(int categoryId){
         return productDao.getProductsByCategoryId(categoryId);
     }

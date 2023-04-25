@@ -28,8 +28,8 @@ public class Admin extends JFrame{
     private JLabel titleLabel;
     private JComboBox rolcomboBox;
     private JLabel rolLabel;
-
-
+    private JButton foodManagerButton;
+    private JButton manageUsersButton;
 
 
     public Admin(){
@@ -87,6 +87,22 @@ public class Admin extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 new FoodAdmin().setVisible(true);
+            }
+        });
+
+        this.foodManagerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new FoodManager().setVisible(true);
+            }
+        });
+
+        this.manageUsersButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new UserManager().setVisible(true);
             }
         });
     }

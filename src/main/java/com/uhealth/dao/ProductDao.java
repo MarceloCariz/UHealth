@@ -36,6 +36,31 @@ public class ProductDao {
         }
     }
 
+    public List<Product> getProducts(){
+        String query = "SELECT p.*, c.nombre categoria  from productos p JOIN categorias c ON p.idCategoria = c.id";
+        List<Product> products = new ArrayList<>();
+
+        try{
+            PreparedStatement statement = conexion.prepareStatement(query);
+
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()){
+                int id = rs.getInt("id");
+                String name = rs.getString("nombre");
+                float calories = rs.getFloat("calorias");
+                float carbs = rs.getFloat("carbohidratos");
+                String category = rs.getString("categoria");
+                Product product = new Product(id, name, calories, carbs, category);
+                products.add(product);
+            }
+
+        }catch (SQLException e){
+            System.err.println("Error en la obtencion de los productos"+e);
+        }
+        return  products;
+    }
+
     public List<Product> getProductsByCategoryId(int categoryId){
         String query = "SELECT * FROM productos WHERE idCategoria = ?";
         List<Product> products = new ArrayList<>();

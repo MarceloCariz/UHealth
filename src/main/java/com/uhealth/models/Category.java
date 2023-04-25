@@ -2,7 +2,7 @@ package main.java.com.uhealth.models;
 
 public class Category {
     private int id;
-    private String nombre;
+    protected String nombre;
 
     // get Categories - constructor
     public Category(int id, String nombre){
@@ -14,6 +14,9 @@ public class Category {
     public Category(String nombre){
         this.nombre = nombre;
     }
+
+    //
+    public Category() {}
 
 
     public void setId(int id) {
