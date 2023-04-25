@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import main.java.com.uhealth.controllers.UserController;
 import main.java.com.uhealth.models.User;
+import main.java.com.uhealth.utils.validations.Validations;
 import main.java.com.uhealth.views.Login;
 
 public class Admin extends JFrame{
@@ -32,6 +33,7 @@ public class Admin extends JFrame{
     private JButton manageUsersButton;
 
 
+    Validations validations = new Validations();
     public Admin(){
         setContentPane(panel1);
         setSize(900, 550);
@@ -56,14 +58,11 @@ public class Admin extends JFrame{
                 if(!isValid) return;
 
                 //Validar email
-                boolean isValidEmail = validateEmail(email);
-                if(!isValidEmail){
-                    JOptionPane.showMessageDialog(null, "El email no es valido");
-                    return;
-                }
+                boolean isValidEmail = validations.validateEmail(email);
+                if(!isValidEmail) return;
 
                 //Validar telefono
-                boolean isValidPhone = isValidPhone(phone);
+                boolean isValidPhone = validations.isValidPhone(phone);
                 if(!isValidPhone) return;
 
                 int rolId  = selectIdRol();
@@ -132,18 +131,4 @@ public class Admin extends JFrame{
         return  true;
     }
 
-    private boolean validateEmail(String email){
-        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
-    }
-
-    private boolean isValidPhone(String phone){
-        if(!phone.matches("\\d+") || (phone.length() == 9) == false){ //que significa "uno o más dígitos numéricos".
-            JOptionPane.showMessageDialog(null, "Formato de numero incorrecto: Revise que sean numeros y no mayor o menor a 9 digitos");
-            return false;
-        }
-        return true;
-    }
 }

@@ -3,6 +3,7 @@ package main.java.com.uhealth.views.Admin;
 import main.java.com.uhealth.controllers.UserController;
 import main.java.com.uhealth.models.Product;
 import main.java.com.uhealth.models.User;
+import main.java.com.uhealth.utils.validations.Validations;
 import main.java.com.uhealth.views.Login;
 
 import javax.swing.*;
@@ -11,7 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class UserManager extends JFrame{
+public class UserManager extends JFrame  {
     private JPanel navBarPanel;
     private JLabel titleLabel;
     private JLabel userName;
@@ -27,6 +28,8 @@ public class UserManager extends JFrame{
 
     DefaultTableModel model = new DefaultTableModel();
     UserController userController = new UserController();
+
+    Validations validations =  new Validations();
 
     public UserManager(){
         setContentPane(mainPanel);
@@ -97,6 +100,11 @@ public class UserManager extends JFrame{
         String phone = (String) model.getValueAt(selectedFood, 2); // telefono
         String email = (String) model.getValueAt(selectedFood, 3); // correo
 
+        boolean isValidPhone = validations.isValidPhone(phone);
+        if(!isValidPhone) return;
+
+        boolean isValidEmail = validations.validateEmail(email);
+        if(!isValidEmail) return;
 
 
         User user = new User(id, name, phone, email);
@@ -131,6 +139,7 @@ public class UserManager extends JFrame{
             Object[] rowData = {user.getId(), user.getName(), user.getPhone(), user.getEmail(), rolName};
             model.addRow(rowData);
         }
-
     }
+
+
 }
