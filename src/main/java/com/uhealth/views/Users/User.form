@@ -51,7 +51,7 @@
             </constraints>
             <properties>
               <foreground color="-918017"/>
-              <text value="Horario"/>
+              <text value="Horario:"/>
             </properties>
           </component>
           <component id="d2dc2" class="javax.swing.JLabel" binding="dateField">
@@ -69,7 +69,7 @@
             </constraints>
             <properties>
               <foreground color="-918017"/>
-              <text value="Fecha"/>
+              <text value="Fecha:"/>
             </properties>
           </component>
           <component id="5c0b9" class="javax.swing.JButton" binding="routinesButton">

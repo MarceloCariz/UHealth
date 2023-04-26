@@ -30,11 +30,15 @@ public class Food extends JFrame {
     private JScrollPane scrollPanel;
     private JTable jTableRoutines;
     private JComboBox datesComboBox;
+    private JLabel totalCaloriesLabel;
+    private JLabel totalCaloriesText;
+    private JLabel totalCarbsText;
 
     String allDatesText = "Todas las fechas";
     DefaultTableModel model = new DefaultTableModel();
     RoutineController routineController = new RoutineController();
 
+    RoutineHelper routineHelper = new RoutineHelper();
     private Connection conexion;
 
 
@@ -68,6 +72,10 @@ public class Food extends JFrame {
         //Llenar comboBox con fechas
         List<String> dates = new DateHelper().getDates(routines);
         fillDateComboBox(dates);
+        // Calorias por fecha
+        setTotalCaloriesText(routines);
+        //Carbs por fecha
+        setTotalCarbsText(routines);
 
 
 
@@ -79,11 +87,15 @@ public class Food extends JFrame {
                 // validar si son todas las fechas
                 if(datesComboBox.getSelectedItem().toString().equals(allDatesText)){
                     executeTableRoutine(routines);
+                    setTotalCaloriesText(routines);
+                    setTotalCarbsText(routines);
                     return;
                 }
                 String date = datesComboBox.getSelectedItem().toString();
                 List<Routine> routinesByDate = new RoutineHelper().getRoutinesByDate(routines, date);
                 executeTableRoutine(routinesByDate);
+                setTotalCaloriesText(routinesByDate);
+                setTotalCarbsText(routinesByDate);
             }
         });
 
@@ -105,6 +117,16 @@ public class Food extends JFrame {
         }
     }
 
+    private void setTotalCaloriesText(List<Routine> routines){
+        // Calorias totales
+        String calorias = routineHelper.getTotalCalories(routines);
+        totalCaloriesText.setText(calorias);
+    }
+
+    private void setTotalCarbsText(List<Routine> routines){
+        String carbs = routineHelper.getTotalCarbs(routines);
+        totalCarbsText.setText(carbs);
+    }
 
     private void fillDateComboBox(List<String> dates){
         datesComboBox.addItem(allDatesText);
