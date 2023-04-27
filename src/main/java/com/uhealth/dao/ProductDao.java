@@ -116,7 +116,6 @@ public class ProductDao {
         }catch (SQLException e){
             System.err.println(e);
             System.err.println("Error en la obtencion de productos por categoria"+e);
-
         }
 
         return products;

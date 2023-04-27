@@ -3,7 +3,6 @@ package main.java.com.uhealth.controllers;
 import main.java.com.uhealth.Database.Conexion;
 import main.java.com.uhealth.models.User;
 import main.java.com.uhealth.service.UserService;
-
 import java.sql.Connection;
 import java.util.List;
 

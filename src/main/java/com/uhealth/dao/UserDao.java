@@ -10,12 +10,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class UserDao{
     private Connection conexion;
 
     public UserDao(){
         this.conexion = Conexion.conectar();
-
     }
 
     public boolean create(User user, int idProfile){

@@ -1,5 +1,6 @@
 package main.java.com.uhealth.models;
 
+
 public class User {
 
     private int id;
