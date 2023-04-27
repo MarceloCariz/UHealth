@@ -107,9 +107,9 @@ public class ProductDao {
                 int id = rs.getInt("id");
                 String name = rs.getString("nombre");
                 float calories = rs.getFloat("calorias");
+                float carbs = rs.getFloat("carbohidratos");
 
-
-                Product product = new Product(id, name, calories);
+                Product product = new Product(id, name, calories, carbs);
                 products.add(product);
             }
 

@@ -35,6 +35,7 @@ public class UserManager extends JFrame  {
         setContentPane(mainPanel);
         setSize(900, 550);
         setResizable(false);
+        setLocationRelativeTo(null);
         setTitle("Administrador-Administrar usuarios");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.userName.setText(Login.userName);

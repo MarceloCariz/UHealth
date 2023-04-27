@@ -40,6 +40,7 @@ public class ProfileV extends JFrame {
         setSize(600, 550);
         setResizable(false);
         setTitle("Perfil - "+ Login.userName);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.userName.setText(Login.userName);
         ProfileController profileController =  new ProfileController();

@@ -36,6 +36,7 @@ public class FoodAdmin extends JFrame{
         setContentPane(panelFoodMain);
         setSize(900, 550);
         setResizable(false);
+        setLocationRelativeTo(null);
         setTitle("Administrador-Agregar Comida");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.userName.setText(Login.userName);

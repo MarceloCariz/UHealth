@@ -39,6 +39,7 @@ public class Admin extends JFrame{
         setSize(900, 550);
         setResizable(false);
         setTitle("Administrador");
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.userName.setText(Login.userName);
 

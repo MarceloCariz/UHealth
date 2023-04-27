@@ -36,6 +36,8 @@ public class User extends JFrame{
     private JLabel dateText;
     private JPanel foodContentMain;
     private JButton profileButton;
+    private JLabel carbsText;
+    private JLabel carbsLabel;
 
     public static String time;
     public static  String date;
@@ -43,13 +45,14 @@ public class User extends JFrame{
 
 
     private  List<Product>  products;
-
+    private String defaultSelectTextComboBox = "Seleccione";
     public User(){
 
         setContentPane(userPanel);
         setSize(600, 550);
         setResizable(false);
         setTitle("Cliente"+ Login.userName);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.userName.setText(Login.userName);
 
@@ -58,6 +61,8 @@ public class User extends JFrame{
         //Obtener horario y fecha
         this.Time();
         //LLenar comboBox con las categorias
+        categoryBox.addItem(defaultSelectTextComboBox); // Texto default
+        selectBox.addItem(defaultSelectTextComboBox);
         this.setCategories();
         //LLenar comBox con las verduras o frutas segun se seleccione la categoria
         this.categoryBox.addActionListener(new ActionListener() {
@@ -74,11 +79,18 @@ public class User extends JFrame{
         this.selectBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //Validar si el campo verduras tiene el seleccione para mostrar en este combox tambien ese texto
+                if (categoryBox.getSelectedItem().toString().equals(defaultSelectTextComboBox)){
+                    selectBox.addItem(defaultSelectTextComboBox + " una verdura");
+                    return;
+                }
                 if(selectBox.getModel().getSize() == 0) return;
                 String productName = selectBox.getSelectedItem().toString();
                 Product product = getInfoByProductName(productName);
                 String calories = Float.toString(product.getCalories());
+                String carbs = Float.toString(product.getCarbs());
                 caloriesField.setText(calories);
+                carbsText.setText(carbs);
             }
         });
 

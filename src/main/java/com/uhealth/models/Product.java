@@ -17,7 +17,7 @@ public class Product extends Category{
 
     public Product(){};
 
-    //Actualizar producto - contructor
+    //Actualizar producto - contructor / Obtener producto by category
     public Product(int id ,String name,  float calories, float carbs){
         this.id = id;
         this.name = name;

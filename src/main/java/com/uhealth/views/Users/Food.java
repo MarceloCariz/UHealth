@@ -51,6 +51,7 @@ public class Food extends JFrame {
         setResizable(false);
         setTitle("Cliente"+ Login.userName);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
         dateField.setText(User.date);
         scheduleField.setText(User.time);
         this.userName.setText(Login.userName);
