@@ -1,14 +1,14 @@
 package main.java.com.uhealth.dao;
-
 import main.java.com.uhealth.Database.Conexion;
 import main.java.com.uhealth.models.Routine;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 public class RoutineDao {
     private Connection conexion;

@@ -44,8 +44,6 @@ public class Food extends JFrame {
 
 
     public Food (){
-        Connection cn = Conexion.conectar();
-        conexion = cn;
         setContentPane(foodPanel);
         setSize(900, 550);
         setResizable(false);
@@ -57,7 +55,7 @@ public class Food extends JFrame {
         this.userName.setText(Login.userName);
         this.userName.setText(Login.userName);
 
-        // DEfiniciion de columnas fechas
+        // Definiciion de columnas fechas
         jTableRoutines = new JTable(model);
         scrollPanel.setViewportView(jTableRoutines);
         model.addColumn("Id");
@@ -111,7 +109,7 @@ public class Food extends JFrame {
     }
 
     private void executeTableRoutine(List<Routine> routines){
-        // Tabla de las rutinas
+        // LLenar Tabla de las rutinas
         for (Routine routine : routines){
             Object[] rowData = {routine.getId(), routine.getDate(), routine.getSchedule(), routine.getName(), routine.getCalories(), routine.getCarbs()};
             model.addRow(rowData);

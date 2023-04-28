@@ -103,7 +103,11 @@ public class FoodManager extends JFrame{
         String nameProduct = (String) model.getValueAt(selectedFood, 1); // 1 = nombre
         String caloriesString = (String) model.getValueAt(selectedFood, 2); //Calorias
         String carbsString = (String) model.getValueAt(selectedFood, 3); // carbs
-
+        //Validacion si son float o numeros
+        if(!caloriesString.matches("\\d+\\.?\\d*") || !carbsString.matches("\\d+\\.?\\d*")){
+            JOptionPane.showMessageDialog(null, "Calorias y Carbohidratos deben ser numeros");
+            return;
+        }
 
         float calories = Float.parseFloat(caloriesString);
         float carbs = Float.parseFloat(carbsString);
@@ -147,4 +151,6 @@ public class FoodManager extends JFrame{
         }
         // todo: checkNombreFruta
     }
+
+
 }

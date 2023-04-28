@@ -2,17 +2,14 @@ package main.java.com.uhealth.models;
 
 public class Routine extends Product{
     private int id;
+    
     private String date;
+
     private String schedule;
 
     private int idUser;
 
     private  int idProduct;
-
-
-
-
-
 
 
     public Routine(){}
